@@ -3,382 +3,606 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>盛力全球底牌数据库 | 看懂商业 · 看懂世界 · 验证答案</title>
+<title>盛力全球商业数据库 | 看懂商业 · 看懂世界 · 看懂未来</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
-  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: #0a0a12;
-  color: #fff;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  background: #0b0e17;
+  color: #e8e8e8;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ===== Section Common ===== */
+section { padding: 100px 0; }
+.section-tag {
+  text-align: center;
+  font-size: 11px; letter-spacing: 4px; color: #c9a84c;
+  margin-bottom: 8px; font-weight: 600;
+}
+.section-title {
+  text-align: center;
+  font-size: clamp(28px, 4.5vw, 42px);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+.section-sub {
+  text-align: center;
+  font-size: 15px; color: #7a7f99;
+  max-width: 600px; margin: 0 auto 56px;
+  line-height: 1.6;
+}
+.divider {
+  width: 40px; height: 2px; background: #c9a84c;
+  margin: 0 auto 16px;
+}
+
+/* ===== Nav ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 16px 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(11,14,23,0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+nav .logo {
+  font-size: 16px; font-weight: 700; color: #fff; letter-spacing: 1px;
+}
+nav .logo span { color: #c9a84c; }
+nav .nav-links { display: flex; gap: 28px; }
+nav .nav-links a {
+  font-size: 13px; color: #7a7f99; text-decoration: none;
+  transition: color .3s;
+}
+nav .nav-links a:hover { color: #c9a84c; }
 
 /* ===== Hero ===== */
 .hero {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: flex; align-items: center; justify-content: center;
   text-align: center;
-  padding: 40px 24px;
-  background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 50%, #0f0f1a 100%);
+  padding: 100px 24px 60px;
+  background: #0b0e17;
   position: relative;
+  overflow: hidden;
 }
 .hero::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(ellipse at 30% 50%, rgba(233,69,96,0.08) 0%, transparent 60%),
-              radial-gradient(ellipse at 70% 50%, rgba(22,33,62,0.12) 0%, transparent 60%);
+  width: 800px; height: 800px;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(201,168,76,0.04) 0%, transparent 70%);
+  pointer-events: none;
 }
-.hero * { position: relative; z-index: 1; }
-.hero .logo {
-  font-size: 14px; letter-spacing: 6px; color: #e94560;
-  margin-bottom: 20px; font-weight: 600;
-}
-.hero h1 {
-  font-size: clamp(32px, 6vw, 56px);
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, #fff 30%, #e94560 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hero .sub {
-  font-size: clamp(14px, 2.5vw, 18px);
-  color: #8888aa;
-  max-width: 480px;
-  line-height: 1.6;
-  margin-bottom: 40px;
-}
-.hero .tagline {
-  display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
-}
-.hero .tagline span {
-  padding: 8px 20px; border: 1px solid rgba(233,69,96,0.3);
-  border-radius: 20px; font-size: 13px; color: #ccc;
-}
-
-/* ===== Section common ===== */
-section { padding: 80px 24px; }
-.section-title {
-  text-align: center; font-size: clamp(22px, 4vw, 32px);
-  font-weight: 700; margin-bottom: 12px;
-}
-.section-sub {
-  text-align: center; font-size: 14px; color: #8888aa;
-  margin-bottom: 48px; line-height: 1.6;
-}
-.container { max-width: 1000px; margin: 0 auto; }
-
-/* ===== Three Halls ===== */
-.halls { background: #0f0f1a; }
-.halls-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
-}
-.hall-card {
-  background: linear-gradient(145deg, #161625, #1a1a2e);
-  border-radius: 16px;
-  padding: 32px 24px;
-  border: 1px solid rgba(255,255,255,0.06);
-  transition: transform .3s, border-color .3s;
-}
-.hall-card:hover { transform: translateY(-4px); border-color: rgba(233,69,96,0.3); }
-.hall-card .icon { font-size: 40px; margin-bottom: 16px; }
-.hall-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-.hall-card .en { font-size: 12px; color: #666; margin-bottom: 12px; letter-spacing: 1px; }
-.hall-card .desc { font-size: 14px; color: #9999bb; line-height: 1.7; margin-bottom: 16px; }
-.hall-card .spirit { font-size: 12px; color: #e94560; padding: 6px 12px; background: rgba(233,69,96,0.1); border-radius: 6px; display: inline-block; }
-.hall-card .status {
-  font-size: 12px; color: #22a67e; margin-top: 12px;
-  padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06);
-}
-.hall-card .status.red { color: #e94560; }
-.hall-card .status.gold { color: #e6a23c; }
-
-/* ===== Five Modules ===== */
-.modules { background: #0a0a12; }
-.module-flow {
-  display: flex; flex-direction: column; align-items: center; gap: 0;
+.hero-globe {
+  width: 180px; height: 180px;
+  margin: 0 auto 32px;
   position: relative;
 }
-.module-row {
-  display: flex; align-items: center; gap: 16px;
-  background: linear-gradient(135deg, #161625, #1a1a2e);
+.hero-globe .globe-ring {
+  position: absolute;
+  width: 100%; height: 100%;
+  border: 1.5px solid rgba(201,168,76,0.25);
+  border-radius: 50%;
+  top: 0; left: 0;
+}
+.hero-globe .globe-ring:nth-child(1) { transform: rotate(0deg); }
+.hero-globe .globe-ring:nth-child(2) { transform: rotate(60deg); }
+.hero-globe .globe-ring:nth-child(3) { transform: rotate(120deg); }
+.hero-globe .globe-dot {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: #c9a84c;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+.hero-globe .globe-dot:nth-child(4) { top: 0; left: 50%; transform: translateX(-50%); }
+.hero-globe .globe-dot:nth-child(5) { bottom: 0; left: 50%; transform: translateX(-50%); }
+.hero-globe .globe-dot:nth-child(6) { left: 0; top: 50%; transform: translateY(-50%); }
+.hero-globe .globe-dot:nth-child(7) { right: 0; top: 50%; transform: translateY(-50%); }
+.hero-globe .globe-center {
+  position: absolute;
+  width: 80px; height: 80px;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(201,168,76,0.08), transparent);
+  border-radius: 50%;
+}
+.hero .hall-tags {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.hero .hall-tags span {
+  padding: 6px 18px;
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 20px;
+  font-size: 12px; color: #c9a84c; background: rgba(201,168,76,0.04);
+  letter-spacing: 1px;
+}
+.hero h1 {
+  font-size: clamp(30px, 5vw, 54px);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+.hero .sub {
+  font-size: clamp(15px, 2vw, 18px);
+  color: #7a7f99;
+  margin-bottom: 40px;
+  letter-spacing: 6px;
+}
+.hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-block; padding: 14px 36px;
+  border-radius: 6px; font-size: 14px; font-weight: 600;
+  text-decoration: none; transition: all .3s; letter-spacing: 1px;
+}
+.btn-primary {
+  background: #c9a84c; color: #0b0e17;
+}
+.btn-primary:hover { background: #dbb95c; transform: translateY(-1px); }
+.btn-outline {
+  border: 1px solid rgba(255,255,255,0.15); color: #e8e8e8;
+}
+.btn-outline:hover { border-color: #c9a84c; color: #c9a84c; }
+
+/* ===== Three Halls ===== */
+.halls { background: #0e1220; }
+.halls-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.hall-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
   border: 1px solid rgba(255,255,255,0.06);
   border-radius: 12px;
-  padding: 20px 24px;
-  width: 100%; max-width: 600px;
+  padding: 36px 28px;
+  transition: transform .3s, border-color .3s;
+}
+.hall-card:hover { transform: translateY(-6px); border-color: rgba(201,168,76,0.2); }
+.hall-card .hall-num {
+  font-size: 11px; letter-spacing: 3px; color: #c9a84c;
+  margin-bottom: 12px; font-weight: 600;
+}
+.hall-card h3 { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.hall-card .hall-en { font-size: 11px; color: #5a5f7a; margin-bottom: 16px; letter-spacing: 2px; }
+.hall-card .hall-desc { font-size: 14px; color: #7a7f99; line-height: 1.7; margin-bottom: 16px; }
+.hall-card .hall-tags-inner { display: flex; flex-wrap: wrap; gap: 6px; }
+.hall-card .hall-tags-inner span {
+  font-size: 12px; padding: 4px 12px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 4px; color: #9999bb;
+}
+.hall-card .hall-media {
+  display: flex; gap: 12px; margin-top: 16px;
+  padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.04);
+  font-size: 12px; color: #5a5f7a;
+}
+.hall-card .hall-media span { display: flex; align-items: center; gap: 4px; }
+/* Hall card specific emphasis */
+.hall-card.x-card { border-color: rgba(201,168,76,0.12); }
+.hall-card.x-card .hall-num { color: #c9a84c; }
+
+/* ===== CT Section ===== */
+.ct-section { background: #0b0e17; position: relative; }
+.ct-flow {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; flex-wrap: wrap; margin: 40px 0;
+}
+.ct-step {
+  text-align: center; padding: 20px 24px;
+  flex: 1; min-width: 120px; max-width: 160px;
+}
+.ct-step .step-icon {
+  width: 56px; height: 56px;
+  border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 12px;
+  font-size: 20px;
+  background: rgba(201,168,76,0.04);
+}
+.ct-step .step-label { font-size: 13px; color: #7a7f99; margin-bottom: 4px; letter-spacing: 1px; }
+.ct-step .step-text { font-size: 14px; color: #fff; font-weight: 600; }
+.ct-arrow { font-size: 20px; color: #c9a84c; opacity: 0.3; }
+.ct-summary {
+  max-width: 800px; margin: 48px auto 0;
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.ct-summary-item {
+  text-align: center; padding: 16px;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+}
+.ct-summary-item .ct-s-icon { font-size: 24px; margin-bottom: 6px; }
+.ct-summary-item .ct-s-text { font-size: 13px; color: #7a7f99; }
+
+/* ===== Liaoning ===== */
+.ln-section { background: #0e1220; }
+.ln-content {
+  max-width: 800px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.ln-card {
+  padding: 24px 20px;
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  text-align: center;
   transition: transform .3s;
 }
-.module-row:hover { transform: scale(1.02); }
-.module-row .m-icon { font-size: 28px; width: 48px; text-align: center; }
-.module-row .m-info { flex: 1; }
-.module-row .m-title { font-size: 16px; font-weight: 600; }
-.module-row .m-desc { font-size: 13px; color: #8888aa; margin-top: 2px; }
-.module-row .m-tag {
-  font-size: 11px; padding: 4px 10px; border-radius: 10px;
-  background: rgba(233,69,96,0.15); color: #e94560; white-space: nowrap;
-}
-.flow-arrow { color: #333; font-size: 18px; padding: 4px 0; }
+.ln-card:hover { transform: translateY(-4px); }
+.ln-card .ln-icon { font-size: 28px; margin-bottom: 8px; }
+.ln-card h4 { font-size: 15px; color: #fff; margin-bottom: 4px; }
+.ln-card p { font-size: 13px; color: #7a7f99; line-height: 1.5; }
 
-/* ===== Enterprise CT ===== */
-.ct-section { background: linear-gradient(135deg, #1a1a2e, #16213e); }
-.ct-box {
-  max-width: 500px; margin: 0 auto;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 32px 24px;
+/* ===== Lab ===== */
+.lab-section { background: #0b0e17; }
+.lab-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.lab-card {
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 24px;
+  background: rgba(255,255,255,0.02);
+  transition: transform .3s;
+}
+.lab-card:hover { transform: translateY(-4px); }
+.lab-card .lab-icon { font-size: 32px; margin-bottom: 12px; }
+.lab-card h4 { font-size: 16px; color: #fff; margin-bottom: 8px; }
+.lab-card p { font-size: 13px; color: #7a7f99; line-height: 1.6; }
+
+/* ===== Case Library (future) ===== */
+.case-section { background: #0e1220; }
+.case-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+.case-card {
+  border: 1px dashed rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 32px 20px;
   text-align: center;
+  background: rgba(255,255,255,0.01);
+  transition: border-color .3s;
 }
-.ct-box .ct-icon { font-size: 48px; margin-bottom: 12px; }
-.ct-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-.ct-box p { font-size: 14px; color: #9999bb; line-height: 1.6; margin-bottom: 20px; }
-.ct-box .ct-btn {
-  display: inline-block; padding: 14px 36px;
-  background: #e94560; color: #fff; border: none;
-  border-radius: 10px; font-size: 15px; font-weight: 600;
-  text-decoration: none; transition: background .3s;
+.case-card:hover { border-color: rgba(201,168,76,0.2); }
+.case-card .case-num { font-size: 14px; color: #c9a84c; letter-spacing: 2px; margin-bottom: 8px; }
+.case-card .case-placeholder { font-size: 13px; color: #5a5f7a; }
+.case-card .case-status {
+  font-size: 11px; color: #c9a84c; margin-top: 12px;
+  padding: 4px 12px; border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 4px; display: inline-block;
 }
-.ct-box .ct-btn:hover { background: #d63850; }
-.ct-box .ct-note { font-size: 12px; color: #666; margin-top: 12px; }
-
-/* ===== Stats ===== */
-.stats { background: #0f0f1a; }
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 16px; text-align: center;
-}
-.stat-item { padding: 20px; }
-.stat-num { font-size: 32px; font-weight: 800; color: #e94560; }
-.stat-label { font-size: 13px; color: #8888aa; margin-top: 4px; }
-
-/* ===== Philosophy ===== */
-.philosophy { background: #0a0a12; }
-.quote-box {
-  max-width: 600px; margin: 0 auto;
-  text-align: center; padding: 40px 20px;
-}
-.quote-box .quote {
-  font-size: clamp(16px, 3vw, 22px);
-  line-height: 1.8;
-  color: #ddd; font-style: italic;
-  margin-bottom: 16px;
-}
-.quote-box .quote-author { font-size: 13px; color: #8888aa; }
-
-.rules-list {
-  max-width: 600px; margin: 40px auto 0;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.rule-item {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 14px 18px;
-  background: rgba(255,255,255,0.03);
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.05);
-}
-.rule-num {
-  width: 28px; height: 28px; border-radius: 50%;
-  background: rgba(233,69,96,0.15);
-  color: #e94560;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700; flex-shrink: 0;
-}
-.rule-text { font-size: 14px; color: #bbb; line-height: 1.5; }
 
 /* ===== Footer ===== */
 footer {
-  text-align: center; padding: 40px 24px;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  padding: 60px 24px 40px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  background: #0b0e17;
 }
-footer .f-logo { font-size: 14px; color: #e94560; letter-spacing: 4px; margin-bottom: 8px; }
-footer .f-desc { font-size: 12px; color: #555; line-height: 1.6; }
-footer .f-line { font-size: 12px; color: #444; margin-top: 6px; }
+.footer-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+footer .f-brand { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; letter-spacing: 2px; }
+footer .f-brand span { color: #c9a84c; }
+footer .f-company { font-size: 13px; color: #5a5f7a; margin-bottom: 16px; }
+footer .f-desc {
+  font-size: 14px; color: #7a7f99; max-width: 500px;
+  margin: 0 auto 24px; line-height: 1.7;
+}
+footer .f-line { font-size: 12px; color: #3d4259; }
 
 /* ===== Responsive ===== */
-@media (max-width: 480px) {
-  section { padding: 48px 20px; }
-  .halls-grid { grid-template-columns: 1fr; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 900px) {
+  .halls-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .lab-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .ct-summary { grid-template-columns: repeat(2, 1fr); }
+  nav .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  section { padding: 64px 0; }
+  .ct-flow { flex-direction: column; }
+  .ct-arrow { transform: rotate(90deg); }
+  .ct-summary { grid-template-columns: repeat(2, 1fr); }
+  .ln-content { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
 <body>
 
+<!-- ===== Nav ===== -->
+<nav>
+  <div class="logo">盛力<span>.</span>全球商业数据库</div>
+  <div class="nav-links">
+    <a href="#halls">三大馆</a>
+    <a href="#ct">企业CT</a>
+    <a href="#liaoning">辽宁计划</a>
+    <a href="#lab">研究室</a>
+    <a href="#cases">案例库</a>
+  </div>
+</nav>
+
 <!-- ===== Hero ===== -->
-<div class="hero">
-  <div class="logo">SHENGLI GLOBAL DATABASE</div>
-  <h1>盛力全球底牌数据库</h1>
-  <div class="sub">
-    不是所有内容都值得入馆。<br>
-    真正的数据库，不是因为收得多而伟大，<br>
-    而是因为筛选得严而珍贵。
+<section class="hero" id="top">
+  <div class="hero-globe">
+    <div class="globe-ring"></div>
+    <div class="globe-ring"></div>
+    <div class="globe-ring"></div>
+    <div class="globe-dot"></div>
+    <div class="globe-dot"></div>
+    <div class="globe-dot"></div>
+    <div class="globe-dot"></div>
+    <div class="globe-center"></div>
   </div>
-  <div class="tagline">
-    <span>🏛️ A馆 · 看懂商业</span>
-    <span>🌍 G馆 · 看懂世界</span>
-    <span>🔬 X馆 · 验证答案</span>
+  <div class="hall-tags">
+    <span>A馆 · 全球国家底牌馆</span>
+    <span>G馆 · 全球企业底牌馆</span>
+    <span>X馆 · 企业成长记录馆</span>
   </div>
-</div>
+  <h1>盛力全球商业数据库</h1>
+  <div class="sub">看懂商业 · 看懂世界 · 看懂未来</div>
+  <div class="hero-btns">
+    <a href="#halls" class="btn btn-primary">进入数据库</a>
+    <a href="./diagnostic.html" class="btn btn-outline">探索企业CT</a>
+  </div>
+</section>
 
 <!-- ===== Three Halls ===== -->
-<section class="halls">
+<section class="halls" id="halls">
   <div class="container">
-    <h2 class="section-title">三大馆藏体系</h2>
-    <p class="section-sub">每一条内容都是一个底牌，每一张底牌都值得被记录</p>
+    <div class="section-tag">三大核心馆</div>
+    <div class="divider"></div>
+    <h2 class="section-title">THREE PILLARS</h2>
+    <p class="section-sub">全球商业经验资产平台 — 每个馆都是一个认知维度</p>
+
     <div class="halls-grid">
 
+      <!-- A馆 -->
       <div class="hall-card">
-        <div class="icon">🏛️</div>
-        <h3>A馆 · 商业底牌馆</h3>
-        <div class="en">BUSINESS HALL</div>
-        <div class="desc">从A001到A316，看懂商业的底层逻辑。品牌案例、商业规则、行业规律，每一张牌都是一次商业认知的升级。</div>
-        <div class="spirit">看懂商业</div>
-        <div class="status">✅ 已封馆 · 316枚</div>
+        <div class="hall-num">A馆</div>
+        <h3>全球国家底牌馆</h3>
+        <div class="hall-en">NATIONAL ADVANTAGE HALL</div>
+        <div class="hall-desc">研究国家商业环境、产业优势、企业生态。从宏观视角理解不同市场的底层逻辑。</div>
+        <div class="hall-tags-inner">
+          <span>🇺🇸 美国馆</span>
+          <span>🇯🇵 日本馆</span>
+          <span>🇩🇪 德国馆</span>
+          <span>🇪🇺 欧洲馆</span>
+          <span>🌏 亚洲馆</span>
+        </div>
+        <div class="hall-media">
+          <span>🎬 视频</span>
+          <span>📄 文章</span>
+          <span>📊 案例</span>
+          <span>🖼️ 图片</span>
+        </div>
       </div>
 
+      <!-- G馆 -->
       <div class="hall-card">
-        <div class="icon">🌍</div>
-        <h3>G馆 · 国际底牌馆</h3>
-        <div class="en">GLOBAL HALL</div>
-        <div class="desc">从G001到G100，看懂世界的运行规则。国家底牌、品牌底牌、金融底牌、科技底牌，站在全球视野看趋势。</div>
-        <div class="spirit">看懂世界</div>
-        <div class="status gold">📅 2026.7.22 开馆</div>
-      </div>
-
-      <div class="hall-card">
-        <div class="icon">🔬</div>
-        <h3>X馆 · 企业增长实践馆</h3>
-        <div class="en">GROWTH LAB</div>
-        <div class="desc">以案例为驱动，记录真实企业的增长实践。90天30条微短纪录片，用行动验证答案。</div>
-        <div class="spirit">验证答案</div>
-        <div class="status red">🚀 进行中 · 案例制</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ===== Stats ===== -->
-<section class="stats">
-  <div class="container">
-    <h2 class="section-title">数据库规模</h2>
-    <p class="section-sub">持续积累，永续生长</p>
-    <div class="stats-grid">
-      <div class="stat-item"><div class="stat-num">416+</div><div class="stat-label">馆藏底牌</div></div>
-      <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">特色展馆</div></div>
-      <div class="stat-item"><div class="stat-num">10</div><div class="stat-label">系列内容</div></div>
-      <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">持续生长</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== Five Modules ===== -->
-<section class="modules">
-  <div class="container">
-    <h2 class="section-title">五模块作战体系</h2>
-    <p class="section-sub">数据库永远在中间，所有平台围绕它</p>
-    <div class="module-flow">
-
-      <div class="module-row">
-        <div class="m-icon">📖</div>
-        <div class="m-info">
-          <div class="m-title">公众号 · 思想阵地</div>
-          <div class="m-desc">输出思想，不追热点。一篇文章只讲一个观点。</div>
+        <div class="hall-num">G馆</div>
+        <h3>全球企业底牌馆</h3>
+        <div class="hall-en">GLOBAL ENTERPRISE HALL</div>
+        <div class="hall-desc">研究优秀企业成长路径。拆解商业模式、品牌战略、经营经验，为企业提供可借鉴的范本。</div>
+        <div class="hall-tags-inner">
+          <span>🍎 苹果</span>
+          <span>🪟 微软</span>
+          <span>🔩 英伟达</span>
+          <span>🚗 丰田</span>
+          <span>📡 华为</span>
+          <span>🧊 海尔</span>
         </div>
-        <div class="m-tag">战略高地</div>
-      </div>
-
-      <div class="flow-arrow">⬇</div>
-
-      <div class="module-row" style="border-color: rgba(233,69,96,0.2);">
-        <div class="m-icon">🏛️</div>
-        <div class="m-info">
-          <div class="m-title">数据库 · 战略资产</div>
-          <div class="m-desc">国库 · 沉淀所有资产，无库则一切空中楼阁</div>
+        <div class="hall-media">
+          <span>🎬 视频</span>
+          <span>📄 文章</span>
+          <span>📊 案例</span>
+          <span>🖼️ 图片</span>
         </div>
-        <div class="m-tag" style="background:rgba(233,69,96,0.2);color:#e94560;">核心</div>
       </div>
 
-      <div class="flow-arrow">⬆</div>
-
-      <div class="module-row">
-        <div class="m-icon">📱</div>
-        <div class="m-info">
-          <div class="m-title">小号 · 民间</div>
-          <div class="m-desc">真实·生活·烟火气，建立亲近感</div>
+      <!-- X馆 -->
+      <div class="hall-card x-card">
+        <div class="hall-num">X馆</div>
+        <h3>企业成长记录馆</h3>
+        <div class="hall-en">GROWTH RECORD HALL</div>
+        <div class="hall-desc">连接真实企业。通过CT诊断、企业访谈、成长档案，记录并见证企业从发现问题到实现成长的完整历程。</div>
+        <div class="hall-tags-inner">
+          <span>🏥 企业CT诊断</span>
+          <span>🎙️ 企业访谈</span>
+          <span>📁 成长档案</span>
+          <span>📋 行业案例</span>
         </div>
-        <div class="m-tag">群众基础</div>
-      </div>
-
-      <div class="flow-arrow">⬆</div>
-
-      <div class="module-row">
-        <div class="m-icon">🎙️</div>
-        <div class="m-info">
-          <div class="m-title">直播 · 先锋部队</div>
-          <div class="m-desc">即时互动 · 建立信任 · 展示数据库</div>
+        <div class="hall-media">
+          <span style="color:#c9a84c;">⭐ 未来核心</span>
         </div>
-        <div class="m-tag">前线指挥部</div>
       </div>
-
     </div>
   </div>
 </section>
 
 <!-- ===== Enterprise CT ===== -->
-<section class="ct-section">
+<section class="ct-section" id="ct">
   <div class="container">
-    <h2 class="section-title">企业CT · 经营健康体检</h2>
-    <p class="section-sub">30道题 · 5分钟 · 摸清企业底子</p>
-    <div class="ct-box">
-      <div class="ct-icon">🏥</div>
-      <h3>免费自测 · 秒出报告</h3>
-      <p>回答30道大白话选择题，立即生成你的企业健康度评分和诊断简报。无需注册，答完即看。</p>
-      <a href="./diagnostic.html" class="ct-btn">开始体检 →</a>
-      <div class="ct-note">数据不上传，结果仅你可见</div>
+    <div class="section-tag">诊断系统</div>
+    <div class="divider"></div>
+    <h2 class="section-title">企业CT® 经营诊断系统</h2>
+    <p class="section-sub">像做CT一样为企业做全面体检 — 发现问题、定位病因、制定方案、持续跟踪</p>
+
+    <div class="ct-flow">
+      <div class="ct-step">
+        <div class="step-icon">📋</div>
+        <div class="step-label">STEP 01</div>
+        <div class="step-text">企业初检</div>
+      </div>
+      <div class="ct-arrow">→</div>
+      <div class="ct-step">
+        <div class="step-icon">💬</div>
+        <div class="step-label">STEP 02</div>
+        <div class="step-text">深度访谈</div>
+      </div>
+      <div class="ct-arrow">→</div>
+      <div class="ct-step">
+        <div class="step-icon">📊</div>
+        <div class="step-label">STEP 03</div>
+        <div class="step-text">数据分析</div>
+      </div>
+      <div class="ct-arrow">→</div>
+      <div class="ct-step">
+        <div class="step-icon">📄</div>
+        <div class="step-label">STEP 04</div>
+        <div class="step-text">诊断报告</div>
+      </div>
+      <div class="ct-arrow">→</div>
+      <div class="ct-step">
+        <div class="step-icon">🎯</div>
+        <div class="step-label">STEP 05</div>
+        <div class="step-text">改善建议</div>
+      </div>
+    </div>
+
+    <div class="ct-summary">
+      <div class="ct-summary-item">
+        <div class="ct-s-icon">🔍</div>
+        <div class="ct-s-text">发现问题</div>
+      </div>
+      <div class="ct-summary-item">
+        <div class="ct-s-icon">📍</div>
+        <div class="ct-s-text">定位病因</div>
+      </div>
+      <div class="ct-summary-item">
+        <div class="ct-s-icon">📝</div>
+        <div class="ct-s-text">制定方案</div>
+      </div>
+      <div class="ct-summary-item">
+        <div class="ct-s-icon">📈</div>
+        <div class="ct-s-text">持续跟踪</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:40px;">
+      <a href="./diagnostic.html" class="btn btn-primary">企业CT体验 →</a>
     </div>
   </div>
 </section>
 
-<!-- ===== Philosophy ===== -->
-<section class="philosophy">
+<!-- ===== Liaoning ===== -->
+<section class="ln-section" id="liaoning">
   <div class="container">
-    <div class="quote-box">
-      <div class="quote">"如果未来这三句话真正实现，<br>《盛力全球底牌数据库》就不仅仅是一套内容，<br>而是一套完整的方法体系。"</div>
-      <div class="quote-author">— 馆长</div>
+    <div class="section-tag">区域计划</div>
+    <div class="divider"></div>
+    <h2 class="section-title">辽宁企业成长帮扶计划</h2>
+    <p class="section-sub">聚焦辽宁本地企业，围绕实际问题提供切实可行的成长支持</p>
+    <div class="ln-content">
+      <div class="ln-card">
+        <div class="ln-icon">🏢</div>
+        <h4>企业经营问题</h4>
+        <p>诊断梳理企业核心痛点</p>
+      </div>
+      <div class="ln-card">
+        <div class="ln-icon">🎨</div>
+        <h4>品牌升级</h4>
+        <p>帮助企业建立品牌认知</p>
+      </div>
+      <div class="ln-card">
+        <div class="ln-icon">📈</div>
+        <h4>营销增长</h4>
+        <p>找到可持续的增长路径</p>
+      </div>
+      <div class="ln-card">
+        <div class="ln-icon">🔗</div>
+        <h4>产业资源</h4>
+        <p>对接上下游产业资源</p>
+      </div>
+      <div class="ln-card" style="grid-column: 1/-1; max-width: 400px; margin: 0 auto; width:100%;">
+        <div class="ln-icon">🤝</div>
+        <h4>经验共享</h4>
+        <p>打造企业成长服务生态</p>
+      </div>
     </div>
+  </div>
+</section>
 
-    <h2 class="section-title" style="margin-top:40px;">馆规七条</h2>
-    <p class="section-sub">长期主义优先于短期流量</p>
-    <div class="rules-list">
-      <div class="rule-item"><span class="rule-num">1</span><span class="rule-text">数据库永远是唯一品牌中心。</span></div>
-      <div class="rule-item"><span class="rule-num">2</span><span class="rule-text">不是所有内容都入馆。</span></div>
-      <div class="rule-item"><span class="rule-num">3</span><span class="rule-text">主号生产资产，小号记录生活。</span></div>
-      <div class="rule-item"><span class="rule-num">4</span><span class="rule-text">公众号输出思想，不追热点。</span></div>
-      <div class="rule-item"><span class="rule-num">5</span><span class="rule-text">直播建立信任，不急于成交。</span></div>
-      <div class="rule-item"><span class="rule-num">6</span><span class="rule-text">所有平台服务数据库，而不是各自为战。</span></div>
-      <div class="rule-item"><span class="rule-num">7</span><span class="rule-text">长期主义优先于短期流量。</span></div>
+<!-- ===== Lab ===== -->
+<section class="lab-section" id="lab">
+  <div class="container">
+    <div class="section-tag">研究</div>
+    <div class="divider"></div>
+    <h2 class="section-title">盛力研究室</h2>
+    <p class="section-sub">创始人商业观察与深度思考</p>
+    <div class="lab-grid">
+      <div class="lab-card">
+        <div class="lab-icon">🎬</div>
+        <h4>视频</h4>
+        <p>商业观察系列，用镜头记录企业成长的底层逻辑。</p>
+      </div>
+      <div class="lab-card">
+        <div class="lab-icon">📝</div>
+        <h4>文章</h4>
+        <p>深度商业分析，不追热点，只讲本质。</p>
+      </div>
+      <div class="lab-card">
+        <div class="lab-icon">🔍</div>
+        <h4>企业案例分析</h4>
+        <p>拆解真实企业案例，提炼可复用的经营经验。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Case Library ===== -->
+<section class="case-section" id="cases">
+  <div class="container">
+    <div class="section-tag">案例库</div>
+    <div class="divider"></div>
+    <h2 class="section-title">企业成长案例库</h2>
+    <p class="section-sub">记录真实企业的成长历程</p>
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="case-num">X001</div>
+        <div class="case-placeholder">案例筹备中</div>
+        <div class="case-status">即将上线</div>
+      </div>
+      <div class="case-card">
+        <div class="case-num">X002</div>
+        <div class="case-placeholder">案例筹备中</div>
+        <div class="case-status">即将上线</div>
+      </div>
+      <div class="case-card">
+        <div class="case-num">X003</div>
+        <div class="case-placeholder">案例筹备中</div>
+        <div class="case-status">即将上线</div>
+      </div>
+      <div class="case-card">
+        <div class="case-num">X00N</div>
+        <div class="case-placeholder">更多案例持续更新</div>
+        <div class="case-status">敬请期待</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ===== Footer ===== -->
 <footer>
-  <div class="f-logo">SHENGLI DATABASE</div>
-  <div class="f-desc">
-    看透底牌的人，永远先行一步。<br>
-    正史，永久收藏。野史，一笑而过。日志，记录成长。直播，连接当下。
+  <div class="footer-inner">
+    <div class="f-brand">盛力<span>.</span>全球商业数据库</div>
+    <div class="f-company">沈阳嘀嘀搭科技有限公司</div>
+    <div class="f-desc">
+      通过商业经验资产沉淀，帮助企业发现问题、学习经验、实现成长。
+    </div>
+    <div class="f-line">© 2026 盛力全球商业数据库 · 正在生长中</div>
   </div>
-  <div class="f-line">© 2026 盛力全球底牌数据库 · 正在生长中</div>
 </footer>
 
 </body>
