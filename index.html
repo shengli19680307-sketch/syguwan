@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>盛力全球底牌数据库 | 看懂商业 · 看懂世界 · 验证答案</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #0a0a12;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* ===== Hero ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 24px;
+  background: linear-gradient(135deg, #0a0a12 0%, #1a1a2e 50%, #0f0f1a 100%);
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(233,69,96,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 50%, rgba(22,33,62,0.12) 0%, transparent 60%);
+}
+.hero * { position: relative; z-index: 1; }
+.hero .logo {
+  font-size: 14px; letter-spacing: 6px; color: #e94560;
+  margin-bottom: 20px; font-weight: 600;
+}
+.hero h1 {
+  font-size: clamp(32px, 6vw, 56px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #fff 30%, #e94560 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero .sub {
+  font-size: clamp(14px, 2.5vw, 18px);
+  color: #8888aa;
+  max-width: 480px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+.hero .tagline {
+  display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+}
+.hero .tagline span {
+  padding: 8px 20px; border: 1px solid rgba(233,69,96,0.3);
+  border-radius: 20px; font-size: 13px; color: #ccc;
+}
+
+/* ===== Section common ===== */
+section { padding: 80px 24px; }
+.section-title {
+  text-align: center; font-size: clamp(22px, 4vw, 32px);
+  font-weight: 700; margin-bottom: 12px;
+}
+.section-sub {
+  text-align: center; font-size: 14px; color: #8888aa;
+  margin-bottom: 48px; line-height: 1.6;
+}
+.container { max-width: 1000px; margin: 0 auto; }
+
+/* ===== Three Halls ===== */
+.halls { background: #0f0f1a; }
+.halls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.hall-card {
+  background: linear-gradient(145deg, #161625, #1a1a2e);
+  border-radius: 16px;
+  padding: 32px 24px;
+  border: 1px solid rgba(255,255,255,0.06);
+  transition: transform .3s, border-color .3s;
+}
+.hall-card:hover { transform: translateY(-4px); border-color: rgba(233,69,96,0.3); }
+.hall-card .icon { font-size: 40px; margin-bottom: 16px; }
+.hall-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.hall-card .en { font-size: 12px; color: #666; margin-bottom: 12px; letter-spacing: 1px; }
+.hall-card .desc { font-size: 14px; color: #9999bb; line-height: 1.7; margin-bottom: 16px; }
+.hall-card .spirit { font-size: 12px; color: #e94560; padding: 6px 12px; background: rgba(233,69,96,0.1); border-radius: 6px; display: inline-block; }
+.hall-card .status {
+  font-size: 12px; color: #22a67e; margin-top: 12px;
+  padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06);
+}
+.hall-card .status.red { color: #e94560; }
+.hall-card .status.gold { color: #e6a23c; }
+
+/* ===== Five Modules ===== */
+.modules { background: #0a0a12; }
+.module-flow {
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+  position: relative;
+}
+.module-row {
+  display: flex; align-items: center; gap: 16px;
+  background: linear-gradient(135deg, #161625, #1a1a2e);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 20px 24px;
+  width: 100%; max-width: 600px;
+  transition: transform .3s;
+}
+.module-row:hover { transform: scale(1.02); }
+.module-row .m-icon { font-size: 28px; width: 48px; text-align: center; }
+.module-row .m-info { flex: 1; }
+.module-row .m-title { font-size: 16px; font-weight: 600; }
+.module-row .m-desc { font-size: 13px; color: #8888aa; margin-top: 2px; }
+.module-row .m-tag {
+  font-size: 11px; padding: 4px 10px; border-radius: 10px;
+  background: rgba(233,69,96,0.15); color: #e94560; white-space: nowrap;
+}
+.flow-arrow { color: #333; font-size: 18px; padding: 4px 0; }
+
+/* ===== Enterprise CT ===== */
+.ct-section { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+.ct-box {
+  max-width: 500px; margin: 0 auto;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+}
+.ct-box .ct-icon { font-size: 48px; margin-bottom: 12px; }
+.ct-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+.ct-box p { font-size: 14px; color: #9999bb; line-height: 1.6; margin-bottom: 20px; }
+.ct-box .ct-btn {
+  display: inline-block; padding: 14px 36px;
+  background: #e94560; color: #fff; border: none;
+  border-radius: 10px; font-size: 15px; font-weight: 600;
+  text-decoration: none; transition: background .3s;
+}
+.ct-box .ct-btn:hover { background: #d63850; }
+.ct-box .ct-note { font-size: 12px; color: #666; margin-top: 12px; }
+
+/* ===== Stats ===== */
+.stats { background: #0f0f1a; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px; text-align: center;
+}
+.stat-item { padding: 20px; }
+.stat-num { font-size: 32px; font-weight: 800; color: #e94560; }
+.stat-label { font-size: 13px; color: #8888aa; margin-top: 4px; }
+
+/* ===== Philosophy ===== */
+.philosophy { background: #0a0a12; }
+.quote-box {
+  max-width: 600px; margin: 0 auto;
+  text-align: center; padding: 40px 20px;
+}
+.quote-box .quote {
+  font-size: clamp(16px, 3vw, 22px);
+  line-height: 1.8;
+  color: #ddd; font-style: italic;
+  margin-bottom: 16px;
+}
+.quote-box .quote-author { font-size: 13px; color: #8888aa; }
+
+.rules-list {
+  max-width: 600px; margin: 40px auto 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.rule-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.rule-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(233,69,96,0.15);
+  color: #e94560;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; flex-shrink: 0;
+}
+.rule-text { font-size: 14px; color: #bbb; line-height: 1.5; }
+
+/* ===== Footer ===== */
+footer {
+  text-align: center; padding: 40px 24px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+footer .f-logo { font-size: 14px; color: #e94560; letter-spacing: 4px; margin-bottom: 8px; }
+footer .f-desc { font-size: 12px; color: #555; line-height: 1.6; }
+footer .f-line { font-size: 12px; color: #444; margin-top: 6px; }
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+  section { padding: 48px 20px; }
+  .halls-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<div class="hero">
+  <div class="logo">SHENGLI GLOBAL DATABASE</div>
+  <h1>盛力全球底牌数据库</h1>
+  <div class="sub">
+    不是所有内容都值得入馆。<br>
+    真正的数据库，不是因为收得多而伟大，<br>
+    而是因为筛选得严而珍贵。
+  </div>
+  <div class="tagline">
+    <span>🏛️ A馆 · 看懂商业</span>
+    <span>🌍 G馆 · 看懂世界</span>
+    <span>🔬 X馆 · 验证答案</span>
+  </div>
+</div>
+
+<!-- ===== Three Halls ===== -->
+<section class="halls">
+  <div class="container">
+    <h2 class="section-title">三大馆藏体系</h2>
+    <p class="section-sub">每一条内容都是一个底牌，每一张底牌都值得被记录</p>
+    <div class="halls-grid">
+
+      <div class="hall-card">
+        <div class="icon">🏛️</div>
+        <h3>A馆 · 商业底牌馆</h3>
+        <div class="en">BUSINESS HALL</div>
+        <div class="desc">从A001到A316，看懂商业的底层逻辑。品牌案例、商业规则、行业规律，每一张牌都是一次商业认知的升级。</div>
+        <div class="spirit">看懂商业</div>
+        <div class="status">✅ 已封馆 · 316枚</div>
+      </div>
+
+      <div class="hall-card">
+        <div class="icon">🌍</div>
+        <h3>G馆 · 国际底牌馆</h3>
+        <div class="en">GLOBAL HALL</div>
+        <div class="desc">从G001到G100，看懂世界的运行规则。国家底牌、品牌底牌、金融底牌、科技底牌，站在全球视野看趋势。</div>
+        <div class="spirit">看懂世界</div>
+        <div class="status gold">📅 2026.7.22 开馆</div>
+      </div>
+
+      <div class="hall-card">
+        <div class="icon">🔬</div>
+        <h3>X馆 · 企业增长实践馆</h3>
+        <div class="en">GROWTH LAB</div>
+        <div class="desc">以案例为驱动，记录真实企业的增长实践。90天30条微短纪录片，用行动验证答案。</div>
+        <div class="spirit">验证答案</div>
+        <div class="status red">🚀 进行中 · 案例制</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== Stats ===== -->
+<section class="stats">
+  <div class="container">
+    <h2 class="section-title">数据库规模</h2>
+    <p class="section-sub">持续积累，永续生长</p>
+    <div class="stats-grid">
+      <div class="stat-item"><div class="stat-num">416+</div><div class="stat-label">馆藏底牌</div></div>
+      <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">特色展馆</div></div>
+      <div class="stat-item"><div class="stat-num">10</div><div class="stat-label">系列内容</div></div>
+      <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">持续生长</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Five Modules ===== -->
+<section class="modules">
+  <div class="container">
+    <h2 class="section-title">五模块作战体系</h2>
+    <p class="section-sub">数据库永远在中间，所有平台围绕它</p>
+    <div class="module-flow">
+
+      <div class="module-row">
+        <div class="m-icon">📖</div>
+        <div class="m-info">
+          <div class="m-title">公众号 · 思想阵地</div>
+          <div class="m-desc">输出思想，不追热点。一篇文章只讲一个观点。</div>
+        </div>
+        <div class="m-tag">战略高地</div>
+      </div>
+
+      <div class="flow-arrow">⬇</div>
+
+      <div class="module-row" style="border-color: rgba(233,69,96,0.2);">
+        <div class="m-icon">🏛️</div>
+        <div class="m-info">
+          <div class="m-title">数据库 · 战略资产</div>
+          <div class="m-desc">国库 · 沉淀所有资产，无库则一切空中楼阁</div>
+        </div>
+        <div class="m-tag" style="background:rgba(233,69,96,0.2);color:#e94560;">核心</div>
+      </div>
+
+      <div class="flow-arrow">⬆</div>
+
+      <div class="module-row">
+        <div class="m-icon">📱</div>
+        <div class="m-info">
+          <div class="m-title">小号 · 民间</div>
+          <div class="m-desc">真实·生活·烟火气，建立亲近感</div>
+        </div>
+        <div class="m-tag">群众基础</div>
+      </div>
+
+      <div class="flow-arrow">⬆</div>
+
+      <div class="module-row">
+        <div class="m-icon">🎙️</div>
+        <div class="m-info">
+          <div class="m-title">直播 · 先锋部队</div>
+          <div class="m-desc">即时互动 · 建立信任 · 展示数据库</div>
+        </div>
+        <div class="m-tag">前线指挥部</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== Enterprise CT ===== -->
+<section class="ct-section">
+  <div class="container">
+    <h2 class="section-title">企业CT · 经营健康体检</h2>
+    <p class="section-sub">30道题 · 5分钟 · 摸清企业底子</p>
+    <div class="ct-box">
+      <div class="ct-icon">🏥</div>
+      <h3>免费自测 · 秒出报告</h3>
+      <p>回答30道大白话选择题，立即生成你的企业健康度评分和诊断简报。无需注册，答完即看。</p>
+      <a href="./diagnostic.html" class="ct-btn">开始体检 →</a>
+      <div class="ct-note">数据不上传，结果仅你可见</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Philosophy ===== -->
+<section class="philosophy">
+  <div class="container">
+    <div class="quote-box">
+      <div class="quote">"如果未来这三句话真正实现，<br>《盛力全球底牌数据库》就不仅仅是一套内容，<br>而是一套完整的方法体系。"</div>
+      <div class="quote-author">— 馆长</div>
+    </div>
+
+    <h2 class="section-title" style="margin-top:40px;">馆规七条</h2>
+    <p class="section-sub">长期主义优先于短期流量</p>
+    <div class="rules-list">
+      <div class="rule-item"><span class="rule-num">1</span><span class="rule-text">数据库永远是唯一品牌中心。</span></div>
+      <div class="rule-item"><span class="rule-num">2</span><span class="rule-text">不是所有内容都入馆。</span></div>
+      <div class="rule-item"><span class="rule-num">3</span><span class="rule-text">主号生产资产，小号记录生活。</span></div>
+      <div class="rule-item"><span class="rule-num">4</span><span class="rule-text">公众号输出思想，不追热点。</span></div>
+      <div class="rule-item"><span class="rule-num">5</span><span class="rule-text">直播建立信任，不急于成交。</span></div>
+      <div class="rule-item"><span class="rule-num">6</span><span class="rule-text">所有平台服务数据库，而不是各自为战。</span></div>
+      <div class="rule-item"><span class="rule-num">7</span><span class="rule-text">长期主义优先于短期流量。</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <div class="f-logo">SHENGLI DATABASE</div>
+  <div class="f-desc">
+    看透底牌的人，永远先行一步。<br>
+    正史，永久收藏。野史，一笑而过。日志，记录成长。直播，连接当下。
+  </div>
+  <div class="f-line">© 2026 盛力全球底牌数据库 · 正在生长中</div>
+</footer>
+
+</body>
+</html>
