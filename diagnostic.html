@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>企业CT | 经营健康体检</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+  }
+  .container { max-width: 600px; margin: 0 auto; background: #fff; min-height: 100vh; }
+
+  /* Header */
+  .top {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #fff;
+    padding: 32px 24px 20px;
+  }
+  .top h1 { font-size: 20px; font-weight: 700; }
+  .top p { font-size: 13px; opacity: 0.7; margin-top: 6px; }
+
+  /* Progress */
+  .prog { padding: 16px 24px 0; }
+  .prog-bar { height: 4px; background: #eee; border-radius: 2px; overflow: hidden; }
+  .prog-fill { height: 100%; background: #e94560; border-radius: 2px; transition: width .3s; }
+  .prog-label { font-size: 12px; color: #999; margin-top: 4px; }
+
+  /* Question */
+  .q-area { padding: 24px; }
+  .q-num { display: inline-block; background: #e94560; color: #fff; font-size: 12px; padding: 2px 10px; border-radius: 10px; margin-bottom: 12px; }
+  .q-text { font-size: 17px; font-weight: 600; color: #1a1a2e; line-height: 1.5; margin-bottom: 20px; }
+
+  /* Options */
+  .opts { display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    padding: 14px 16px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    background: #fafafa;
+    cursor: pointer;
+    transition: .2s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .opt.sel { border-color: #16213e; background: #eef3f9; }
+  .opt:active { transform: scale(0.98); }
+  .opt-label { display: flex; align-items: flex-start; gap: 10px; }
+  .opt-letter {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 2px solid #ccc;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #ccc;
+    flex-shrink: 0;
+    transition: .2s;
+  }
+  .opt.sel .opt-letter { border-color: #16213e; background: #16213e; color: #fff; }
+  .opt-text { font-size: 15px; color: #333; line-height: 1.5; padding-top: 1px; }
+
+  /* Nav */
+  .nav { padding: 0 24px 32px; display: flex; justify-content: space-between; }
+  .nav .btn {
+    padding: 12px 28px; border: none; border-radius: 10px;
+    font-size: 15px; font-weight: 600; cursor: pointer; transition: .2s;
+  }
+  .btn-prev { background: #f0f0f0; color: #666; }
+  .btn-next { background: #16213e; color: #fff; }
+  .btn-next:disabled { background: #ccc; }
+  .btn-sub { background: #e94560; color: #fff; }
+
+  /* Result - 抓心版 */
+  .result { display: none; padding: 40px 24px 32px; text-align: center; }
+  .result .health-header { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 12px; }
+  .result .health-header .pct { font-size: 16px; font-weight: 400; color: #666; }
+  .result .bar-wrap { margin: 16px 0; text-align: left; }
+  .result .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .result .bar-label { font-size: 13px; color: #555; width: 50px; flex-shrink: 0; }
+  .result .bar-track { flex: 1; height: 16px; background: #eee; border-radius: 8px; overflow: hidden; }
+  .result .bar-fill { height: 100%; border-radius: 8px; transition: width .8s ease; }
+  .result .bar-fill.green { background: #22a67e; }
+  .result .bar-fill.yellow { background: #e6a23c; }
+  .result .bar-fill.red { background: #e94560; }
+  .result .code-box {
+    margin: 16px auto; padding: 12px; background: #f5f7fa; border-radius: 10px;
+    font-size: 16px; font-weight: 700; color: #16213e; letter-spacing: 1px;
+    word-break: break-all; border: 1px dashed #ddd;
+  }
+  .result .copy-btn {
+    padding: 8px 20px; background: #16213e; color: #fff; border: none;
+    border-radius: 8px; font-size: 13px; cursor: pointer;
+  }
+  .result .cta-box {
+    margin-top: 20px; padding: 20px; background: #1a1a2e; color: #fff;
+    border-radius: 12px; text-align: left; line-height: 1.8;
+  }
+  .result .cta-box .cta-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+  .result .cta-box .cta-item { font-size: 13px; opacity: 0.9; padding: 2px 0; }
+  .result .cta-box .cta-btn {
+    display: block; margin-top: 14px; padding: 12px; background: #e94560;
+    color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600;
+    text-align: center; cursor: pointer; width: 100%;
+  }
+  .result .closing {
+    margin-top: 16px; font-size: 13px; color: #888; line-height: 1.6;
+    font-style: italic; padding: 0 10px;
+  }
+  .result .disclaimer { font-size: 11px; color: #bbb; margin-top: 12px; line-height: 1.5; }
+  /* 诊断简报 */
+  .brief { margin: 20px 0; padding: 20px; background: #fff4f0; border-radius: 12px; border: 1px solid #ffd6cc; text-align: left; }
+  .brief-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin-bottom: 14px; }
+  .brief-item { display: flex; gap: 10px; padding: 10px 0; border-bottom: 1px solid #ffe0d6; }
+  .brief-item:last-child { border-bottom: none; }
+  .brief-num { width: 24px; height: 24px; border-radius: 50%; background: #e94560; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .brief-text { font-size: 13px; color: #333; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="top">
+    <h1>企业CT · 经营健康体检</h1>
+    <p>30道题 · 5分钟 · 摸清企业底子</p>
+  </div>
+
+  <div class="prog">
+    <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    <div class="prog-label" id="progLabel">第 1/30 题</div>
+  </div>
+
+  <div class="q-area" id="qArea">
+    <div class="q-num" id="qNum">Q1</div>
+    <div class="q-text" id="qText"></div>
+    <div class="opts" id="opts"></div>
+  </div>
+
+  <div class="nav" id="nav">
+    <button class="btn btn-prev" id="prevBtn" onclick="pre()" style="visibility:hidden">上一题</button>
+    <button class="btn btn-next" id="nextBtn" onclick="nex()" disabled>下一题</button>
+  </div>
+
+  <div class="result" id="result">
+    <div class="health-header" id="healthHeader">企业健康度：84% ⭐⭐⭐⭐</div>
+
+    <div class="bar-wrap" id="bars"></div>
+
+    <div class="brief">
+      <div class="brief-title">📋 诊断简报 · 您的企业目前最值得优先关注：</div>
+      <div id="briefItems"></div>
+    </div>
+
+    <div style="margin:16px 0 8px;font-size:12px;color:#999;">诊断编号（发给顾问解码用）</div>
+    <div class="code-box" id="codeBox"></div>
+    <button class="copy-btn" onclick="copyCode()">复制编号 · 联系顾问</button>
+
+    <div class="cta-box">
+      <div class="cta-title">📞 本次仅为企业经营初检。</div>
+      <div class="cta-item" style="margin-top:10px;">如果您希望进一步了解：</div>
+      <div class="cta-item">✔ 为什么会出现这些问题？</div>
+      <div class="cta-item">✔ 哪个问题最应该优先解决？</div>
+      <div class="cta-item">✔ 下一步如何调整？</div>
+      <div style="font-size:13px;opacity:0.9;margin-top:8px;line-height:1.5;">欢迎预约您的专属顾问，获取《企业CT深度诊断简报》</div>
+      <button class="cta-btn" onclick="copyCode()">复制编号 · 预约面谈</button>
+    </div>
+
+    <div class="closing">企业的问题，系统可以发现；企业的答案，需要面对面。</div>
+    <div class="disclaimer">⚠️ 本次仅为初步经营体检，结果仅供参考。</div>
+  </div>
+</div>
+
+<script>
+// ===== 30道题 =====
+const Q = [
+  // 一、聊聊你的生意
+  { d:"市场", q:"你的客户主要是怎么来的？", o:[
+    "靠朋友介绍，介绍一个算一个",
+    "也发了抖音/朋友圈，但没啥动静",
+    "客户自己找上门，我不缺客源"
+  ]},
+  { d:"市场", q:"你的老客户还会回头找你吗？", o:[
+    "卖完就不咋联系了",
+    "有一部分会回来，但没数过",
+    "老客户占大头，主要靠回头客"
+  ]},
+  { d:"市场", q:"你觉得你的东西比同行好在哪？", o:[
+    "说实话，没啥区别",
+    "感觉比他们强点，但说不上来",
+    "贵有贵的道理，客户认我"
+  ]},
+  { d:"市场", q:"你了解你的客户不？", o:[
+    "啥人都有，来啥接啥",
+    "大概知道是哪些人",
+    "心里有数，谁在买为啥买都清楚"
+  ]},
+  { d:"市场", q:"你的价格是怎么定的？", o:[
+    "同行卖多少我就卖多少",
+    "成本加点利润，差不多就行",
+    "看行情定，我有利润客户能接受"
+  ]},
+  { d:"市场", q:"你现在最愁的是啥？", o:[
+    "连人都没有，没客户来",
+    "人来了嫌贵，不下单",
+    "单下了钱不给，拖着难受"
+  ]},
+  { d:"市场", q:"你有没有想过，客户为啥不买你的？", o:[
+    "没想过，就觉得是贵了",
+    "大概有数，但没确认过",
+    "问过，知道他们咋想的"
+  ]},
+  { d:"市场", q:"你现在有几个路子卖货？", o:[
+    "就一个，店门口/朋友圈",
+    "有两三个，但主要靠一个",
+    "线上线下都做，不吊死一棵树"
+  ]},
+  { d:"市场", q:"你觉得这行还能干多久？", o:[
+    "感觉快到头了",
+    "还有空间，但不知道咋挖",
+    "市场大得很，看怎么做"
+  ]},
+  { d:"市场", q:"明天突然冒出一个比你便宜一半的，你咋整？", o:[
+    "不知道，只能跟着降",
+    "有点慌，但应该能顶一下",
+    "不怕，我的客户认的是我这个人"
+  ]},
+  // 二、聊聊你的钱
+  { d:"资金", q:"你账上现金能撑几个月？", o:[
+    "三个月都撑不到",
+    "半年吧，紧巴巴的",
+    "一年没问题，心里不慌"
+  ]},
+  { d:"资金", q:"你知道每个月钱花哪去了不？", o:[
+    "大概知道，没细算过",
+    "记了账，但看不懂",
+    "心里门儿清，花多少赚多少都有数"
+  ]},
+  { d:"资金", q:"别人欠你的钱，好要回来不？", o:[
+    "难，三个月算快的，有的要不回",
+    "个把月吧，还行",
+    "基本没欠的，现结现清"
+  ]},
+  { d:"资金", q:"你欠别人的钱多不？", o:[
+    "欠了不少，想着就烦",
+    "正常欠着，月结",
+    "基本不欠，有钱就付"
+  ]},
+  { d:"资金", q:"你知道你卖多少才能回本不？", o:[
+    "不知道，卖了再说",
+    "大概知道，没算准过",
+    "门儿清，每个月都算一遍"
+  ]},
+  { d:"资金", q:"你那行的利润，你算啥水平？", o:[
+    "比同行低，累死累活不挣钱",
+    "跟大家差不多",
+    "比同行高，而且越来越稳"
+  ]},
+  { d:"资金", q:"每个月最愁的固定支出是啥？", o:[
+    "房租工资，月月愁",
+    "还行，但怕涨价",
+    "固定支出不多，没压力"
+  ]},
+  { d:"资金", q:"想过借钱或者找人投资不？", o:[
+    "想过，但不知道找谁",
+    "问过银行/朋友，条件不划算",
+    "有路子，也知道怎么用"
+  ]},
+  { d:"资金", q:"现在赚的够你干你想干的事不？", o:[
+    "不够，活着就拼尽全力了",
+    "勉强够，但不敢乱花",
+    "够用，还有余力干新事"
+  ]},
+  { d:"资金", q:"你定的那个目标，算过能不能赚钱没？", o:[
+    "没算过，拍脑袋定的",
+    "大概估过，没细算",
+    "算得清清楚楚，能干才干"
+  ]},
+  // 三、聊聊你的人
+  { d:"团队", q:"你不在店里/公司的时候，能正常转不？", o:[
+    "我一不在就乱套",
+    "基本能转，但慢不少",
+    "我在不在一个样"
+  ]},
+  { d:"团队", q:"你的员工是主动干，还是等你吩咐？", o:[
+    "推一下动一下",
+    "会干，但不会多想",
+    "各干各的，不用我操心"
+  ]},
+  { d:"团队", q:"你最得力的那个手下，明天走了咋办？", o:[
+    "那完了，一半业务得停",
+    "会很难，但还能撑",
+    "有人能顶上，不怕"
+  ]},
+  { d:"团队", q:"你觉得你给员工的钱，值不值？", o:[
+    "感觉不值，但没人用",
+    "还行吧，市场价",
+    "值，好员工就该多给"
+  ]},
+  { d:"团队", q:"你团队几个人，心齐不齐？", o:[
+    "各想各的，全靠我哄着",
+    "大方向一致，小摩擦不少",
+    "挺齐的，都往一处使"
+  ]},
+  // 四、聊聊你自己
+  { d:"老板", q:"你每天大部分时间在干啥？", o:[
+    "救火，到处处理烂摊子",
+    "干活，自己也在埋头干业务",
+    "想事，琢磨未来咋走"
+  ]},
+  { d:"老板", q:"你最近一次觉得自己以前想错了，是啥时候？", o:[
+    "很久了，我觉得没啥问题",
+    "偶尔会发现，但不多",
+    "经常，发现问题就改"
+  ]},
+  { d:"老板", q:"你做决定一般是靠啥？", o:[
+    "凭感觉，觉得行就干",
+    "也看看数据问问人，最后还是拍脑袋",
+    "算清楚了再干，不做没把握的事"
+  ]},
+  { d:"老板", q:"你现在干的这个，三年后还能干不？", o:[
+    "不好说，走一步看一步",
+    "应该还能，但心里没底",
+    "能干，而且已经在想下一步了"
+  ]},
+  { d:"老板", q:"你最怕的是啥？", o:[
+    "没钱、没生意",
+    "被同行干趴下",
+    "跟不上时代，错过了机会"
+  ]}
+];
+
+// ===== 答题逻辑 =====
+let cur = 0, ans = new Array(30).fill(null), done = false;
+const map = { A:0, B:1, C:2 };
+
+function show() {
+  if (done) return;
+  const q = Q[cur];
+  document.getElementById('qNum').textContent = 'Q' + (cur+1);
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('progFill').style.width = (cur/30*100) + '%';
+  document.getElementById('progLabel').textContent = '第 ' + (cur+1) + '/30 题 · ' + q.d;
+
+  const c = document.getElementById('opts');
+  c.innerHTML = '';
+  'ABC'.split('').forEach((l, i) => {
+    const d = document.createElement('div');
+    d.className = 'opt' + (ans[cur]===i ? ' sel' : '');
+    d.innerHTML = `<div class="opt-label">
+      <span class="opt-letter">${l}</span>
+      <span class="opt-text">${q.o[i]}</span>
+    </div>`;
+    d.onclick = () => pick(i);
+    c.appendChild(d);
+  });
+
+  document.getElementById('prevBtn').style.visibility = cur===0 ? 'hidden' : 'visible';
+  const nb = document.getElementById('nextBtn');
+  if (cur === 29) {
+    nb.textContent = '提交';
+    nb.className = 'btn btn-sub';
+    nb.disabled = ans[cur]===null;
+  } else {
+    nb.textContent = '下一题';
+    nb.className = 'btn btn-next';
+    nb.disabled = ans[cur]===null;
+  }
+}
+
+function pick(i) {
+  if (done) return;
+  ans[cur] = i;
+  show();
+  if (cur < 29) setTimeout(nex, 250);
+}
+
+function pre() { if(cur>0 && !done){cur--;show();window.scrollTo({top:0})} }
+function nex() {
+  if (done || ans[cur]===null) return;
+  if (cur === 29) { finish(); return; }
+  cur++; show(); window.scrollTo({top:0});
+}
+
+function finish() {
+  done = true;
+
+  // Calculate scores (same logic as decoder)
+  var scores = [0,0,0,0,0,0];
+  var dims = ["市场","资金","市场","资金","团队","老板"];
+  var mapScore = {0:1, 1:3, 2:5};
+  ans.forEach(function(a, i) {
+    var di = Math.floor(i / 5);
+    scores[di] += mapScore[a];
+  });
+  var total = scores.reduce(function(a,b){return a+b;}, 0);
+  var pct = Math.round(total / 150 * 100);
+
+  // Stars — 7星制
+  var stars = pct >= 90 ? 7 : pct >= 75 ? 6 : pct >= 60 ? 5 : pct >= 45 ? 4 : pct >= 30 ? 3 : pct >= 15 ? 2 : 1;
+
+  // Dimension labels for display
+  var dimLabels = ["市场-获客","市场-竞争","资金-现金流","资金-利润","团队","老板"];
+  var dimColors = scores.map(function(s) {
+    return s <= 10 ? 'red' : s <= 18 ? 'yellow' : 'green';
+  });
+
+  // Find worst dims
+  var reds = []; var yellows = [];
+  dimColors.forEach(function(c, i) {
+    if (c === 'red') reds.push(dimLabels[i]);
+    else if (c === 'yellow') yellows.push(dimLabels[i]);
+  });
+
+  // Build bars HTML
+  var barHtml = '';
+  var barNames = ["市场","市场","资金","资金","团队","老板"];
+  var barIcons = ["📈","🎯","💰","💳","👥","🧠"];
+  dimLabels.forEach(function(l, i) {
+    var p = Math.round(scores[i]/25*100);
+    barHtml += '<div class="bar-row"><span class="bar-label">' + barIcons[i] + l + '</span><div class="bar-track"><div class="bar-fill ' + dimColors[i] + '" style="width:' + p + '%"></div></div></div>';
+  });
+  document.getElementById('bars').innerHTML = barHtml;
+
+  // Generate top 3 concerns
+  var concerns = [];
+  var concernMap = [
+    // 市场-获客 (index 0)
+    ["获客渠道单一，过于依赖熟人介绍","客户来源不稳定，缺乏主动拓客能力","没有稳定的获客方式，来一个算一个"],
+    // 市场-竞争 (index 1)
+    ["产品/服务缺乏差异化，容易被替代","定价被动，利润空间被对手压制","价格战来临时缺乏防御能力"],
+    // 资金-现金流 (index 2)
+    ["现金流吃紧，抗风险能力不足","回款周期长，资金周转压力大","没有清晰的成本核算，钱花哪了不清楚"],
+    // 资金-利润 (index 3)
+    ["固定成本占比过高，利润被吃掉","利润率偏低，累死累活不赚钱","目标没细算过，干不干得成心里没底"],
+    // 团队 (index 4)
+    ["团队过度依赖老板，你不在就乱","核心岗位一将难求，骨干走了就瘫痪","团队执行力不足，心不齐"],
+    // 老板 (index 5)
+    ["每天救火式管理，没时间思考未来","凭直觉做决策，缺乏数据支撑","对未来缺乏清晰规划，走一步看一步"]
+  ];
+
+  scores.forEach(function(s, i) {
+    if (s <= 18) { // red or yellow
+      var idx = 0;
+      if (s <= 10) idx = 0;  // red: first concern
+      else if (s <= 14) idx = 1; // low yellow
+      else idx = 2; // high yellow
+      concerns.push({ dim: dimLabels[i], text: concernMap[i][idx], score: s });
+    }
+  });
+
+  // Sort by lowest score first and take top 3
+  concerns.sort(function(a,b){ return a.score - b.score; });
+  concerns = concerns.slice(0, 3);
+
+  var briefHtml = '';
+  if (concerns.length > 0) {
+    concerns.forEach(function(c, i) {
+      var icon = c.score <= 10 ? '🔴' : '🟡';
+      briefHtml += '<div class="brief-item"><span class="brief-num">' + (i+1) + '</span><span class="brief-text">' + icon + ' ' + c.text + '</span></div>';
+    });
+  } else {
+    briefHtml = '<div class="brief-item"><span class="brief-num">✓</span><span class="brief-text" style="color:#22a67e;">各维度表现良好，企业处在健康状态</span></div>';
+  }
+  document.getElementById('briefItems').innerHTML = briefHtml;
+
+  // Display — 企业健康度：84% ⭐⭐⭐⭐
+  document.getElementById('healthHeader').innerHTML = '企业健康度：' + pct + '分 <span class="pct">' + '⭐'.repeat(stars) + '☆'.repeat(7-stars) + '（' + stars + '/7星）' + '</span>';
+
+  // Generate code
+  const code = ans.map(function(a,i){ return 'ABC'[a]; }).join('');
+  document.getElementById('codeBox').textContent = code;
+  window._code = code;
+
+  document.getElementById('qArea').style.display = 'none';
+  document.getElementById('nav').style.display = 'none';
+  document.querySelector('.prog').style.display = 'none';
+  document.getElementById('result').style.display = 'block';
+}
+
+function copyCode() {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(window._code).then(() => {
+      alert('已复制！请发给你的诊断顾问。');
+    });
+  } else {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = window._code;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    alert('已复制！请发给你的诊断顾问。');
+  }
+}
+
+show();
+</script>
+</body>
+</html>
